@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="description" content="Ibrahim Mahmud — a student from Bangladesh learning cybersecurity and AI. I learn how systems work, how they break, and how to protect them." />
+    <link rel="icon" href="data:," />
+    <title>Ibrahim Mahmud — Portfolio</title>
+    <style>
+      :root {
+        --bg: #0f172a;
+        --ink: #e2e8f0;
+        --body: #94a3b8;
+        --muted: #64748b;
+        --teal: #5eead4;
+        --pill-bg: rgba(45, 212, 191, 0.1);
+        --card-hover: rgba(30, 41, 59, 0.5);
+        --card-line: rgba(148, 163, 184, 0.1);
+        --header-bg: rgba(15, 23, 42, 0.75);
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--body);
+        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+      }
+      ::selection { background: rgba(94, 234, 212, 0.25); color: var(--ink); }
+
+      /* ---------- Spotlight ---------- */
+      #spotlight {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background: radial-gradient(
+          600px circle at var(--mx, 50%) var(--my, -10%),
+          rgba(29, 78, 216, 0.15),
+          rgba(94, 234, 212, 0.04) 45%,
+          transparent 75%
+        );
+      }
+      @media (hover: none), (pointer: coarse) {
+        #spotlight { display: none; }
+      }
+
+      /* ---------- Skip link ---------- */
+      .skip-link {
+        position: absolute;
+        left: 1rem;
+        top: -4rem;
+        z-index: 50;
+        background: var(--teal);
+        color: #0f172a;
+        font-weight: 600;
+        font-size: 0.875rem;
+        padding: 0.6rem 1rem;
+        border-radius: 0.375rem;
+        text-decoration: none;
+        transition: top 0.2s ease;
+      }
+      .skip-link:focus { top: 1rem; }
+
+      /* ---------- Layout ---------- */
+      .layout {
+        position: relative;
+        z-index: 1;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+      @media (min-width: 1024px) {
+        .layout {
+          display: flex;
+          gap: 1rem;
+          padding: 0 3rem;
+        }
+      }
+
+      /* ---------- Left column ---------- */
+      .masthead { padding: 3rem 0 0; }
+      @media (min-width: 1024px) {
+        .masthead {
+          position: sticky;
+          top: 0;
+          width: 50%;
+          max-height: 100vh;
+          padding: 6rem 0;
+          display: flex;
+          flex-direction: column;
+        }
+      }
+      .masthead h1 {
+        margin: 0;
+        color: var(--ink);
+        font-size: clamp(2.25rem, 6vw, 3rem);
+        font-weight: 800;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+      }
+      .masthead h1 a { color: inherit; text-decoration: none; }
+      .role {
+        margin: 0.75rem 0 0;
+        color: var(--ink);
+        font-size: 1.25rem;
+        font-weight: 500;
+        line-height: 1.4;
+      }
+      .tagline {
+        margin: 1rem 0 0;
+        max-width: 20rem;
+        font-size: 1rem;
+      }
+
+      /* Skills strip under the tagline */
+      .skills-strip {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin: 1.5rem 0 0;
+        padding: 0;
+        max-width: 22rem;
+      }
+
+      /* ---------- Side nav ---------- */
+      .side-nav { display: none; }
+      @media (min-width: 1024px) {
+        .side-nav { display: block; margin-top: 4rem; }
+        .side-nav ul { list-style: none; margin: 0; padding: 0; }
+        .side-nav a {
+          display: inline-flex;
+          align-items: center;
+          gap: 1rem;
+          padding: 0.65rem 0;
+          min-height: 2.25rem;
+          color: var(--muted);
+          text-decoration: none;
+          font-size: 0.75rem;
+          font-weight: 700;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          transition: color 0.2s ease;
+        }
+        .side-nav .rule {
+          display: block;
+          width: 2rem;
+          height: 1px;
+          background: var(--muted);
+          transition: width 0.25s ease, background 0.25s ease;
+        }
+        .side-nav a:hover, .side-nav a:focus-visible { color: var(--ink); }
+        .side-nav a:hover .rule, .side-nav a:focus-visible .rule {
+          width: 4rem;
+          background: var(--ink);
+        }
+        .side-nav a.active { color: var(--ink); }
+        .side-nav a.active .rule { width: 4rem; background: var(--ink); }
+      }
+
+      /* ---------- Social icons ---------- */
+      .socials {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        margin: 2rem 0 0;
+        padding: 0;
+      }
+      @media (min-width: 1024px) {
+        .socials { margin-top: auto; }
+      }
+      .socials a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        color: var(--body);
+        transition: color 0.2s ease;
+      }
+      .socials a:hover, .socials a:focus-visible { color: var(--teal); }
+      .socials svg { width: 1.5rem; height: 1.5rem; display: block; }
+
+      /* ---------- Right column ---------- */
+      main { padding: 3.5rem 0 6rem; }
+      @media (min-width: 1024px) {
+        main { width: 50%; padding: 6rem 0; }
+      }
+      section { scroll-margin-top: 6rem; margin-bottom: 6rem; }
+      section:last-of-type { margin-bottom: 4rem; }
+      @media (min-width: 1024px) {
+        section { margin-bottom: 9rem; }
+        section:last-of-type { margin-bottom: 6rem; }
+      }
+
+      /* Mobile section headings */
+      .section-heading {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        margin: 0 -1.5rem 1.5rem;
+        padding: 1.25rem 1.5rem;
+        background: var(--header-bg);
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+        color: var(--ink);
+        font-size: 0.875rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      @media (min-width: 1024px) {
+        .section-heading { display: none; }
+      }
+
+      main p { margin: 0 0 1rem; }
+      main p:last-child { margin-bottom: 0; }
+      main a.inline {
+        color: var(--ink);
+        font-weight: 500;
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+      main a.inline:hover, main a.inline:focus-visible { color: var(--teal); }
+
+      .sr-only {
+        position: absolute;
+        width: 1px; height: 1px;
+        padding: 0; margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      /* ---------- Pills ---------- */
+      .pills {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin: 0.75rem 0 0;
+        padding: 0;
+      }
+      .pill {
+        background: var(--pill-bg);
+        color: var(--teal);
+        font-size: 0.75rem;
+        font-weight: 500;
+        line-height: 1;
+        padding: 0.35rem 0.75rem;
+        border-radius: 9999px;
+        white-space: nowrap;
+      }
+
+      /* ---------- Card rows ---------- */
+      .row-list { list-style: none; margin: 0; padding: 0; }
+      .row {
+        position: relative;
+        display: grid;
+        gap: 0.25rem 1rem;
+        padding: 1.25rem;
+        margin: 0 -1.25rem 0.5rem;
+        border-radius: 0.5rem;
+        transition: background 0.2s ease, opacity 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+      @media (min-width: 640px) {
+        .row { grid-template-columns: 8.5rem 1fr; gap: 0.25rem 1.5rem; }
+      }
+      .row .when {
+        color: var(--muted);
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        padding-top: 0.3rem;
+        white-space: nowrap;
+      }
+      .row .tile {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 5.5rem;
+        height: 3.5rem;
+        margin-bottom: 0.5rem;
+        border: 1px solid var(--card-line);
+        border-radius: 0.375rem;
+        background: rgba(30, 41, 59, 0.4);
+        color: var(--body);
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+      }
+      @media (min-width: 640px) {
+        .row .tile { margin-bottom: 0; }
+      }
+      .row h3 {
+        margin: 0;
+        color: var(--ink);
+        font-size: 1rem;
+        font-weight: 500;
+        line-height: 1.45;
+      }
+      .row h3 a { color: inherit; text-decoration: none; transition: color 0.2s ease; }
+      .row h3 a::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+      }
+      .row .arrow {
+        display: inline-block;
+        width: 1rem;
+        height: 1rem;
+        margin-left: 0.25rem;
+        vertical-align: -0.15em;
+        transition: transform 0.2s ease;
+      }
+      .row p { margin: 0.4rem 0 0; font-size: 0.9rem; line-height: 1.6; }
+
+      @media (hover: hover) and (pointer: fine) {
+        .row-list:hover > .row { opacity: 0.5; }
+        .row-list:hover > .row:hover {
+          opacity: 1;
+          background: var(--card-hover);
+          box-shadow: inset 0 1px 0 0 var(--card-line);
+        }
+        .row:hover h3, .row:hover h3 a { color: var(--teal); }
+        .row:hover .arrow { transform: translate(3px, -3px); }
+      }
+
+      /* ---------- Footer ---------- */
+      footer {
+        color: var(--muted);
+        font-size: 0.875rem;
+        line-height: 1.7;
+        max-width: 28rem;
+      }
+      footer .slogan { color: var(--body); }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        *, *::before, *::after { transition: none !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="spotlight" aria-hidden="true"></div>
+    <a class="skip-link" href="#content">Skip to content</a>
+
+    <div class="layout">
+      <header class="masthead">
+        <div>
+          <h1><a href="#top">Ibrahim Mahmud</a></h1>
+          <p class="role">Student · Cybersecurity &amp; AI Explorer</p>
+          <p class="tagline">I learn how systems work, how they break, and how to protect them.</p>
+          <ul class="skills-strip" aria-label="Areas I focus on">
+            <li class="pill">Cybersecurity</li>
+            <li class="pill">AI</li>
+            <li class="pill">Information Security</li>
+            <li class="pill">Networking</li>
+            <li class="pill">Android</li>
+            <li class="pill">Vibe Coding</li>
+          </ul>
+
+          <nav class="side-nav" aria-label="In-page">
+            <ul>
+              <li><a href="#about" data-spy="about"><span class="rule" aria-hidden="true"></span><span>About</span></a></li>
+              <li><a href="#journey" data-spy="journey"><span class="rule" aria-hidden="true"></span><span>Journey</span></a></li>
+              <li><a href="#projects" data-spy="projects"><span class="rule" aria-hidden="true"></span><span>Projects</span></a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <ul class="socials" aria-label="Social links">
+          <li>
+            <a href="https://github.com/ibrahimmahmudx" target="_blank" rel="noreferrer" aria-label="GitHub (opens in a new tab)">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12Z"/></svg>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/in/ibrahimmahmudx/" target="_blank" rel="noreferrer" aria-label="LinkedIn (opens in a new tab)">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.55V9h3.57v11.45Z"/></svg>
+            </a>
+          </li>
+          <li>
+            <a href="https://x.com/ibrahimmahmudx" target="_blank" rel="noreferrer" aria-label="X (opens in a new tab)">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.93 6.07-6.93Zm-1.29 19.5h2.04L6.49 3.24H4.3l13.31 17.41Z"/></svg>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.tiktok.com/@ibrahimmahmudx" target="_blank" rel="noreferrer" aria-label="TikTok (opens in a new tab)">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.9 2.9 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1Z"/></svg>
+            </a>
+          </li>
+          <li>
+            <a href="https://ibrahimmahmud.pro.bd" target="_blank" rel="noreferrer" aria-label="My current website (opens in a new tab)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10Z"/></svg>
+            </a>
+          </li>
+        </ul>
+      </header>
+
+      <main id="content">
+        <section id="about" aria-label="About">
+          <h2 class="section-heading">About</h2>
+          <p>I am a 16-year-old student from Bangladesh, in Class 10 in the Science group, preparing for the SSC exam in 2027.</p>
+          <p>My main interests are cybersecurity — information security, web and network security, ethical hacking, and vulnerability assessment — and artificial intelligence: how large models reason, AI agents, and APIs. I build my websites and projects with AI tools, and I learn by taking real systems apart and putting them back together.</p>
+          <p>My long-term goal is to study Computer Science and Engineering and become a highly skilled professional in AI and cybersecurity. My guiding line is simple: <span style="color: var(--ink); font-weight: 500;">“Build a world where hacking is no subject.”</span></p>
+        </section>
+
+        <section id="journey" aria-label="Journey">
+          <h2 class="section-heading">Journey</h2>
+          <ol class="row-list">
+            <li class="row">
+              <span class="when">2025 — Present</span>
+              <div>
+                <h3>Building SILIC, my own AI agent</h3>
+                <p>A personal AI assistant that lives on Telegram, remembers things, runs tasks on its own, and asks before doing anything risky.</p>
+                <ul class="pills" aria-label="Related skills">
+                  <li class="pill">AI Agents</li>
+                  <li class="pill">Python</li>
+                  <li class="pill">Telegram</li>
+                </ul>
+              </div>
+            </li>
+            <li class="row">
+              <span class="when">2025 — Present</span>
+              <div>
+                <h3>Learning cybersecurity hands-on</h3>
+                <p>Studying web and network security, ethical hacking and vulnerability assessment, and practising OSINT techniques on my own accounts and data.</p>
+                <ul class="pills" aria-label="Related skills">
+                  <li class="pill">Information Security</li>
+                  <li class="pill">Networking</li>
+                  <li class="pill">OSINT</li>
+                </ul>
+              </div>
+            </li>
+            <li class="row">
+              <span class="when">2025</span>
+              <div>
+                <h3>July Uprising Chronicle</h3>
+                <p>A memorial website documenting the July 2024 uprising in Bangladesh, with the official list of 834 martyrs and a gallery of 1,500 photographs.</p>
+                <ul class="pills" aria-label="Related skills">
+                  <li class="pill">Web</li>
+                  <li class="pill">Research</li>
+                  <li class="pill">Documentation</li>
+                </ul>
+              </div>
+            </li>
+            <li class="row">
+              <span class="when">2027</span>
+              <div>
+                <h3>SSC Examination</h3>
+                <p>Science group, Class 10. Preparing now with a focus on Physics, Chemistry, Biology and Mathematics.</p>
+                <ul class="pills" aria-label="Related subjects">
+                  <li class="pill">Physics</li>
+                  <li class="pill">Chemistry</li>
+                  <li class="pill">Biology</li>
+                </ul>
+              </div>
+            </li>
+          </ol>
+        </section>
+
+        <section id="projects" aria-label="Projects">
+          <h2 class="section-heading">Projects</h2>
+          <ol class="row-list">
+            <li class="row">
+              <div class="tile" aria-hidden="true">SI</div>
+              <div>
+                <h3>SILIC — Personal AI Agent</h3>
+                <p>An autonomous assistant I designed and built: it chats on Telegram and WhatsApp, keeps a long-term memory, schedules tasks, and uses a risk-based permission system before taking action.</p>
+                <ul class="pills" aria-label="Related skills">
+                  <li class="pill">AI Agents</li>
+                  <li class="pill">Python</li>
+                  <li class="pill">FastAPI</li>
+                </ul>
+              </div>
+            </li>
+            <li class="row">
+              <div class="tile" aria-hidden="true">36</div>
+              <div>
+                <h3>
+                  <a href="https://july-uprising-chronicle.vercel.app/" target="_blank" rel="noreferrer">July Uprising Chronicle<svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg><span class="sr-only">(opens in a new tab)</span></a>
+                </h3>
+                <p>A bilingual memorial site with a searchable list of 834 martyrs, an interactive district map, and 1,500 credited photographs from Wikimedia Commons.</p>
+                <ul class="pills" aria-label="Related skills">
+                  <li class="pill">Web</li>
+                  <li class="pill">Data</li>
+                  <li class="pill">Maps</li>
+                </ul>
+              </div>
+            </li>
+            <li class="row">
+              <div class="tile" aria-hidden="true">IM</div>
+              <div>
+                <h3>
+                  <a href="https://ibrahimmahmud.pro.bd" target="_blank" rel="noreferrer">This Portfolio<svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg><span class="sr-only">(opens in a new tab)</span></a>
+                </h3>
+                <p>My corner of the internet, built with AI tools and refined by hand-picking every detail.</p>
+                <ul class="pills" aria-label="Related skills">
+                  <li class="pill">Vibe Coding</li>
+                  <li class="pill">Design</li>
+                </ul>
+              </div>
+            </li>
+          </ol>
+        </section>
+
+        <footer>
+          <p>Designed and built by Ibrahim Mahmud. <span class="slogan">Build a world where hacking is no subject.</span></p>
+        </footer>
+      </main>
+    </div>
+
+    <script>
+      (function () {
+        /* Spotlight: smoothly follows the pointer, desktop only. */
+        var fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+        var spot = document.getElementById("spotlight");
+        if (fine && spot) {
+          var tx = window.innerWidth / 2, ty = -100;
+          var cx = tx, cy = ty, raf = null;
+          function tick() {
+            cx += (tx - cx) * 0.12;
+            cy += (ty - cy) * 0.12;
+            spot.style.setProperty("--mx", cx.toFixed(1) + "px");
+            spot.style.setProperty("--my", cy.toFixed(1) + "px");
+            if (Math.abs(tx - cx) > 0.5 || Math.abs(ty - cy) > 0.5) {
+              raf = requestAnimationFrame(tick);
+            } else {
+              raf = null;
+            }
+          }
+          window.addEventListener("pointermove", function (e) {
+            tx = e.clientX;
+            ty = e.clientY;
+            if (!raf) raf = requestAnimationFrame(tick);
+          }, { passive: true });
+        }
+
+        /* Scroll-spy: highlight the nav item for the section in view. */
+        var links = {};
+        document.querySelectorAll("[data-spy]").forEach(function (a) {
+          links[a.getAttribute("data-spy")] = a;
+          a.addEventListener("click", function () { setActive(a.getAttribute("data-spy")); });
+        });
+        function setActive(id) {
+          Object.keys(links).forEach(function (key) {
+            links[key].classList.toggle("active", key === id);
+          });
+        }
+        if ("IntersectionObserver" in window) {
+          var spy = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) setActive(entry.target.id);
+            });
+          }, { rootMargin: "-30% 0px -60% 0px" });
+          ["about", "journey", "projects"].forEach(function (id) {
+            var el = document.getElementById(id);
+            if (el) spy.observe(el);
+          });
+        }
+        setActive("about");
+      })();
+    </script>
+  </body>
+</html>
